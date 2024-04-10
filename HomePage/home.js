@@ -1,5 +1,6 @@
 let inputBox = document.querySelector(".codeEditor");
-let runButton = document.getElementById("runButton");
+let runButton = document.getElementById("run");
+let saveButton = document.getElementById("save");
 
 localStorage.setItem("index.html", "");
 localStorage.setItem("script.js", "");
@@ -59,4 +60,29 @@ files.forEach((file) => {
       currentFile = e.target.innerText; //Change current file
       RefreshCodeEditor(currentFile);
    });
+});
+
+saveButton.addEventListener("click", async () => {
+   let htmlCode = localStorage.getItem("index.html");
+   let cssCode = localStorage.getItem("style.css");
+   let jsCode = localStorage.getItem("script.js");
+
+   let codes = {
+      htmlCode: htmlCode,
+      cssCode: cssCode,
+      jsCode: jsCode,
+   };
+
+   const URL = "http://localhost/BackendOfCodeEdititor/index.php";
+   let response = await (
+      await fetch(URL, {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(codes),
+      })
+   ).text();
+
+   console.log(response);
 });

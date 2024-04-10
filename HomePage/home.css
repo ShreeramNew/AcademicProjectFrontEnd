@@ -49,7 +49,7 @@ body {
 .active{
     background-color: rgb(51, 51, 60);
 }
-#runButton{
+.runOrSubmit{
     position: absolute;
     z-index: 1;
     outline: none;
@@ -61,7 +61,10 @@ body {
     right: 70px;
     border-radius: 6px;
 }
-#runButton:hover{
+.runOrSubmit:hover{
     background-color: green;
     color: white;
+}
+#run{
+   right: 150px;
 }
