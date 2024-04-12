@@ -1,0 +1,35 @@
+body{
+    margin: 0;
+    background-color: rgb(32, 33, 43);
+}
+.container{
+    border:2px solid black;
+    height: 100vh;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    overflow: auto;
+    padding-left: 6%;
+    column-gap: 40px;
+}
+.project{
+    margin: 10px;
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgb(234, 233, 233);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+h2{
+    text-align: center;
+    margin: 0px;
+    color: rgb(230, 227, 227);
+}
+.folderIcon{
+    width: 130px;
+    height:130px;
+}

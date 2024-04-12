@@ -69,8 +69,8 @@ saveButton.addEventListener("click", async () => {
 
    let codes = {
       htmlCode: htmlCode,
-      cssCode: cssCode,
       jsCode: jsCode,
+      cssCode: cssCode,
    };
 
    const URL = "http://localhost/BackendOfCodeEdititor/index.php";
