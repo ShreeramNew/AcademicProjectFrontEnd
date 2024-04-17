@@ -6,14 +6,13 @@ body{
     border:2px solid black;
     height: 100vh;
     display: flex;
-    flex-wrap:wrap;
-    justify-content:flex-start;
-    overflow: auto;
-    padding-left: 6%;
-    column-gap: 40px;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding: 10px;
+    align-content: flex-start;
+    gap: 20px;
 }
 .project{
-    margin: 10px;
     width: 150px;
     height: 150px;
     border: 2px solid rgb(234, 233, 233);
@@ -24,11 +23,11 @@ body{
     align-items: center;
     padding: 10px;
 }
-h2{
-    text-align: center;
-    margin: 0px;
-    color: rgb(230, 227, 227);
+.title{
+    color: white;
+    font-size: 1.2rem;
 }
+
 .folderIcon{
     width: 130px;
     height:130px;
