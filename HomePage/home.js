@@ -1,7 +1,10 @@
 let inputBox = document.querySelector(".codeEditor");
 let runButton = document.getElementById("run");
 let saveButton = document.getElementById("save");
+inputBox.focus();
 
+let ProjectId=localStorage.getItem('CurrentProject');
+// alert(ProjectId);
 localStorage.setItem("index.html", "");
 localStorage.setItem("script.js", "");
 localStorage.setItem("style.css", "");
@@ -59,6 +62,7 @@ files.forEach((file) => {
       setLocalStorage(currentFile);
       currentFile = e.target.innerText; //Change current file
       RefreshCodeEditor(currentFile);
+      inputBox.focus();
    });
 });
 
