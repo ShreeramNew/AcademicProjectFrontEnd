@@ -3,7 +3,7 @@ let runButton = document.getElementById("run");
 let saveButton = document.getElementById("save");
 inputBox.focus();
 
-let ProjectId=localStorage.getItem('CurrentProject');
+let ProjectId = localStorage.getItem("CurrentProject");
 // alert(ProjectId);
 localStorage.setItem("index.html", "");
 localStorage.setItem("script.js", "");
