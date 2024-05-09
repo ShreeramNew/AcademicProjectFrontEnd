@@ -1,14 +1,21 @@
 let container = document.querySelector(".container"); //Imported parent container
 let createProject = document.getElementById("create");
 
-let projects = [
-   { id: 1234, name: "Translator" },
-   { id: 5532, name: "Calculator" },
-   { id: 5366, name: "Jai SHreeram" },
-   { id: 1443, name: "Super" },
-];
+async function fetchAllProjects() {
+   //Requests the server and fetches all the projects
+   let projects = await (
+      await fetch("http://localhost/BackendOfCodeEdititor/getProjects.php")
+   ).json();
+
+   //For each projects, folder icons will be created
+   projects.forEach((project) => {
+      createProjectFolder(project);
+   });
+}
+fetchAllProjects();
 
 function handleClickProject(e) {
+   //Handles click on any project folder
    let projectId = e.target.classList[1];
    localStorage.setItem("CurrentProject", projectId);
    let codeEditorLink = document.createElement("a");
@@ -17,6 +24,7 @@ function handleClickProject(e) {
 }
 
 function createProjectFolder(project) {
+   //For given project, this function creates folder icon and design
    let eachProject = document.createElement("div"); //Container for each project
    eachProject.className = "project " + project.id;
 
@@ -26,25 +34,21 @@ function createProjectFolder(project) {
 
    let titleContainer = document.createElement("div");
    titleContainer.className = "title " + project.id;
-   titleContainer.innerHTML = project.name;
+   titleContainer.innerHTML = project.projectName;
 
    eachProject.appendChild(folderImage);
    eachProject.appendChild(titleContainer);
 
    eachProject.addEventListener("click", (e) => handleClickProject(e));
 
-   let nextToCreate = createProject.nextSibling;
-   if (nextToCreate) {
-      container.insertBefore(eachProject, nextToCreate);
+   let nextToCreateProject = createProject.nextSibling;
+   if (nextToCreateProject) {
+      container.insertBefore(eachProject, nextToCreateProject);
    } else {
       container.append(eachProject);
    }
    return titleContainer;
 }
-
-projects.forEach((project) => {
-   createProjectFolder(project);
-});
 
 createProject.addEventListener("click", () => {
    //Here a request will be made to Server, and it will return a new project id and name

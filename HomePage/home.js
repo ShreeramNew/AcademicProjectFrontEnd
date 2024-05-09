@@ -67,6 +67,7 @@ files.forEach((file) => {
 });
 
 saveButton.addEventListener("click", async () => {
+   setLocalStorage(currentFile);
    let htmlCode = localStorage.getItem("index.html");
    let cssCode = localStorage.getItem("style.css");
    let jsCode = localStorage.getItem("script.js");
