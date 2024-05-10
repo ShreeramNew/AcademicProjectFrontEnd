@@ -4,7 +4,9 @@ let createProject = document.getElementById("create");
 async function fetchAllProjects() {
    //Requests the server and fetches all the projects
    let projects = await (
-      await fetch("http://localhost/BackendOfCodeEdititor/getProjects.php")
+      await fetch("http://127.0.0.1/BackendOfCodeEdititor/getProjects.php",{
+         credentials: 'include'  // Needed to send/receive cookies
+      })
    ).json();
 
    //For each projects, folder icons will be created
