@@ -42,7 +42,7 @@ input {
    border-radius: 8px;
    border: 1px solid black;
 }
-button {
+#signInButton{
    padding: 7px;
    width: 45%;
    margin-left: 30%;
@@ -51,7 +51,7 @@ button {
    border: none;
    border-radius: 6px;
 }
-button:hover {
+#signInButton:hover {
    background-color: rgb(27, 27, 100);
 }
 a {

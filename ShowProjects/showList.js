@@ -2,11 +2,10 @@ let container = document.querySelector(".container"); //Imported parent containe
 let createProject = document.getElementById("create");
 
 async function fetchAllProjects() {
+   let userId = localStorage.getItem("userId");
    //Requests the server and fetches all the projects
    let projects = await (
-      await fetch("http://127.0.0.1/BackendOfCodeEdititor/getProjects.php",{
-         credentials: 'include'  // Needed to send/receive cookies
-      })
+      await fetch("http://127.0.0.1/BackendOfCodeEdititor/getProjects.php?userId=" + userId)
    ).json();
 
    //For each projects, folder icons will be created
@@ -71,6 +70,8 @@ createProject.addEventListener("click", () => {
       if (event.key == "Enter") {
          newFolder.contentEditable = false;
          selection.removeAllRanges();
+         let newTitle=newFolder.innerText;
+         
       }
    });
 });
