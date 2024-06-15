@@ -48,30 +48,69 @@ function createProjectFolder(project) {
    } else {
       container.append(eachProject);
    }
-   return titleContainer;
+   let response = {
+      titleContainer: titleContainer,
+      fullFolder: eachProject,
+   };
+   return response;
 }
 
-createProject.addEventListener("click", () => {
+createProject.addEventListener("click", async () => {
    //Here a request will be made to Server, and it will return a new project id and name
+   let userId = localStorage.getItem("userId");
    let newProject = {
-      id: 67449,
-      name: "New Folder",
+      id: 0,
+      projectName: "New Folder",
    };
+
    let newFolder = createProjectFolder(newProject);
-   newFolder.contentEditable = true;
+   let titleContainer = newFolder.titleContainer;
+   let fullFolder = newFolder.fullFolder;
+   titleContainer.contentEditable = true;
 
    let range = document.createRange();
-   range.selectNodeContents(newFolder);
+   range.selectNodeContents(titleContainer);
    let selection = window.getSelection();
    selection.removeAllRanges();
    selection.addRange(range);
 
-   newFolder.addEventListener("keydown", (event) => {
+   titleContainer.addEventListener("keydown", async (event) => {
       if (event.key == "Enter") {
-         newFolder.contentEditable = false;
+         titleContainer.contentEditable = false;
          selection.removeAllRanges();
-         let newTitle=newFolder.innerText;
-         
+         let newTitle = titleContainer.innerText;
+
+         let response = await (
+            await fetch(
+               "http://127.0.0.1/BackendOfCodeEdititor/createProject.php?userId=" +
+                  userId +
+                  "&pname=" +
+                  newTitle
+            )
+         ).json();
+         if (response.status == 200) {
+            fullFolder.className = "project " + response.id;
+         } else {
+            alert(response.message);
+
+            titleContainer.contentEditable = true;
+            let range = document.createRange();
+            range.selectNodeContents(titleContainer);
+            let selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+         }
       }
    });
 });
+
+
+//Handle Logout
+let logout=document.querySelector('.logout');
+console.log(logout);
+logout.addEventListener('click',()=>{
+   alert('clicked')
+   localStorage.removeItem('userId');
+   window.location.href = "../index.html";
+
+})

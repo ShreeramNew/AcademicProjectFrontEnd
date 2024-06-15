@@ -29,6 +29,7 @@ signUpButton.addEventListener("click", async (e) => {
       ).json();
       if (response.status == 200) {
          localStorage.setItem("userId", response.userId);
+         window.location.href = "../ShowProjects/showList.html";
       } else {
          alert(response.message);
       }
