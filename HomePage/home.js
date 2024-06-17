@@ -4,23 +4,31 @@ let saveButton = document.getElementById("save");
 inputBox.focus();
 
 let ProjectId = localStorage.getItem("CurrentProject");
-// alert(ProjectId);
-localStorage.setItem("index.html", "");
-localStorage.setItem("script.js", "");
-localStorage.setItem("style.css", "");
+
+async function fetchCode() {
+   let url = "http://localhost/BackendOfCodeEdititor/getCode.php?projectId=" + ProjectId;
+   let response = await (await fetch(url)).json();
+   localStorage.setItem("index.html", response.html);
+   inputBox.innerText =response.html;
+   localStorage.setItem("script.js", response.javascript);
+   localStorage.setItem("style.css", response.css);
+
+}
+fetchCode();
+
+let RefreshCodeEditor = (fileName) => {
+   //Sync the input box with currently active file
+   inputBox.innerText = localStorage.getItem(fileName);
+};
 
 let currentFile = "index.html";
-
 let setLocalStorage = (fileName) => {
    //It takes the current code in inputBox and saves it in corresponding localStorage item
    let currentCode = inputBox.innerText;
    localStorage.setItem(fileName, currentCode);
 };
 
-let RefreshCodeEditor = (fileName) => {
-   //Sync the input box with currently active file
-   inputBox.innerText = localStorage.getItem(fileName);
-};
+
 
 runButton.addEventListener("click", () => {
    setLocalStorage(currentFile);
@@ -72,22 +80,22 @@ saveButton.addEventListener("click", async () => {
    let cssCode = localStorage.getItem("style.css");
    let jsCode = localStorage.getItem("script.js");
 
-   let codes = {
+   let data = {
+      projectId: ProjectId,
       htmlCode: htmlCode,
       jsCode: jsCode,
       cssCode: cssCode,
    };
 
-   const URL = "http://localhost/BackendOfCodeEdititor/index.php";
+   const URL = "http://localhost/BackendOfCodeEdititor/saveProject.php";
    let response = await (
       await fetch(URL, {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
          },
-         body: JSON.stringify(codes),
+         body: JSON.stringify(data),
       })
-   ).text();
-
-   console.log(response);
+   ).json();
+   alert(response.message);
 });

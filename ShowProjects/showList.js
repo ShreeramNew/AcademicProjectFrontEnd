@@ -51,6 +51,7 @@ function createProjectFolder(project) {
    let response = {
       titleContainer: titleContainer,
       fullFolder: eachProject,
+      folderImage:folderImage
    };
    return response;
 }
@@ -64,8 +65,11 @@ createProject.addEventListener("click", async () => {
    };
 
    let newFolder = createProjectFolder(newProject);
+
    let titleContainer = newFolder.titleContainer;
    let fullFolder = newFolder.fullFolder;
+   let folderImage=newFolder.folderImage;
+
    titleContainer.contentEditable = true;
 
    let range = document.createRange();
@@ -90,9 +94,10 @@ createProject.addEventListener("click", async () => {
          ).json();
          if (response.status == 200) {
             fullFolder.className = "project " + response.id;
+            folderImage.className = "folderIcon " + response.id;
+            titleContainer.className = "title " + response.id;
          } else {
             alert(response.message);
-
             titleContainer.contentEditable = true;
             let range = document.createRange();
             range.selectNodeContents(titleContainer);
@@ -109,7 +114,6 @@ createProject.addEventListener("click", async () => {
 let logout=document.querySelector('.logout');
 console.log(logout);
 logout.addEventListener('click',()=>{
-   alert('clicked')
    localStorage.removeItem('userId');
    window.location.href = "../index.html";
 

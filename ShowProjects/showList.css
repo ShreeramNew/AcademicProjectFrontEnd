@@ -11,6 +11,23 @@ body{
     align-items: center;
     background-color: rgb(14, 2, 83);
 }
+.account{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    margin-right: 20px;
+    border: 2px solid green;
+    margin-top: 40px;
+    align-items: center;
+}
+.shower{
+    border: 2px solid white;
+    padding: 10px;
+    display: flex;
+}
+h4{
+    margin: 0px;
+}
 .logout{
     display: flex;
     justify-content: center;
@@ -18,7 +35,11 @@ body{
     border: 2px solid red;
     width: 80px;
     height: 40px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
+}
+.logoutLogo{
+    width: 20px;
+    height: 20px;
 }
 #logoutTitle:hover{
     text-decoration: underline;
