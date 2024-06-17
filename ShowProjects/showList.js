@@ -1,6 +1,7 @@
 let container = document.querySelector(".container"); //Imported parent container
 let createProject = document.getElementById("create");
-
+let emailShower=document.querySelector('#emailShower');
+emailShower.innerText=localStorage.getItem('email')
 async function fetchAllProjects() {
    let userId = localStorage.getItem("userId");
    //Requests the server and fetches all the projects
@@ -112,7 +113,17 @@ createProject.addEventListener("click", async () => {
 
 //Handle Logout
 let logout=document.querySelector('.logout');
-console.log(logout);
+let shower=document.querySelector('.shower');
+let account=document.querySelector('.account');
+let accountDetails=document.querySelector('.account-detail-container');
+
+shower.addEventListener('click',()=>{
+   if(accountDetails.style.visibility=='visible'){
+      accountDetails.style.visibility='hidden'
+   }else{
+      accountDetails.style.visibility='visible';
+   }
+})
 logout.addEventListener('click',()=>{
    localStorage.removeItem('userId');
    window.location.href = "../index.html";

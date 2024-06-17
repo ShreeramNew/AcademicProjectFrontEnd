@@ -16,14 +16,30 @@ body{
     flex-direction: column;
     color: white;
     margin-right: 20px;
-    border: 2px solid green;
-    margin-top: 40px;
+    margin-top:10px;
     align-items: center;
+    background-color: rgb(25, 11, 38);
+    position: relative;
+    border-radius: 20px;
+}
+.account:hover{
+    cursor: pointer;
+}
+.account-detail-container{
+    visibility:hidden;
+    background-color: rgb(69, 69, 69);
+    position: absolute;
+    bottom: -82px;
+    right: 1px;
+    border-radius: 10px;
 }
 .shower{
-    border: 2px solid white;
     padding: 10px;
     display: flex;
+}
+.email{
+    padding: 10px;
+    border-bottom:2px solid black;
 }
 h4{
     margin: 0px;
@@ -32,21 +48,22 @@ h4{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
     width: 80px;
     height: 40px;
     /* margin-right: 20px; */
 }
 .logoutLogo{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 #logoutTitle:hover{
     text-decoration: underline;
+    cursor: pointer;
 }
 #logoutTitle{
     color: white;
 }
+
 .container{
     height: 100vh;
     display: flex;
