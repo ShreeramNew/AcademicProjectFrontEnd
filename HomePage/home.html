@@ -5,16 +5,21 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>CodeEditor</title>
       <link rel="stylesheet" href="home.css" />
-      <link
-         rel="stylesheet"
-         href="prism.css"
-      />
-    
+      <link rel="stylesheet" href="prism.css" />
    </head>
    <body>
+      <div class="pasteButtton">
+         Paste
+      </div>
       <div id="topBar"></div>
-      <button type="button" class="runOrSubmit" id="run">Run</button>
-      <button type="button" class="runOrSubmit" id="save">Save</button>
+      <div type="button" class="runOrSubmit" id="run">
+         <img src="../play.svg" alt="run" class="imgForButtons" />
+         Run
+      </div>
+      <div type="button" class="runOrSubmit" id="save">
+         <img src="../save.svg" alt="save" class="imgForButtons" />
+         Save
+      </div>
 
       <div id="sideBar">
          <div class="file active">index.html</div>

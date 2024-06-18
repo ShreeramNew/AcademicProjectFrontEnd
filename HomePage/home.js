@@ -28,11 +28,15 @@ let setLocalStorage = (fileName) => {
    localStorage.setItem(fileName, currentCode);
 };
 
-
-
 runButton.addEventListener("click", () => {
    setLocalStorage(currentFile);
    let htmlCode = localStorage.getItem("index.html");
+   if(htmlCode.includes("<head>")){
+      let strp="jdn";
+      strp[2]="Hello";
+      
+      // htmlCode.substring(0,htmlCode.indexOf("<head>")+6)+htmlCode.substring()
+   }
 
    if (htmlCode.includes("link")) {
       let cssCode = localStorage.getItem("style.css");
@@ -99,3 +103,22 @@ saveButton.addEventListener("click", async () => {
    ).json();
    alert(response.message);
 });
+
+//Handle Paste button
+let pasteButton=document.querySelector('.pasteButtton');
+
+document.addEventListener('contextmenu',(event)=>{
+   event.preventDefault();
+   if(event.target.id=="sideBar"){
+      pasteButton.style.top=event.clientY+"px";
+      pasteButton.style.left=event.clientX+"px";
+      pasteButton.style.display='block';
+   }
+})
+pasteButton.addEventListener('click',()=>{
+   alert('Ready to click');
+})
+
+document.addEventListener('click',()=>{
+   pasteButton.style.display='none';
+})

@@ -8,7 +8,7 @@ if (userId) {
 }
 
 signInButton.addEventListener("click", async (e) => {
-   // e.preventDefault();
+   e.preventDefault();
    let data = {
       email: emailInput.value,
       password: passwordInput.value,
@@ -17,7 +17,8 @@ signInButton.addEventListener("click", async (e) => {
       alert('Please fill both email and password');
       return;
    }
-   if(!data.email.contains("@gmail.com")){
+   let str="jhs";
+   if(!data.email.includes("@gmail.com")){
       alert("Please enter a valid gmail address");
       return;
    }

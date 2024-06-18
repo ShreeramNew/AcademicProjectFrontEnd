@@ -1,7 +1,7 @@
 let container = document.querySelector(".container"); //Imported parent container
 let createProject = document.getElementById("create");
-let emailShower=document.querySelector('#emailShower');
-emailShower.innerText=localStorage.getItem('email')
+let emailShower = document.querySelector("#emailShower");
+emailShower.innerText = localStorage.getItem("email");
 async function fetchAllProjects() {
    let userId = localStorage.getItem("userId");
    //Requests the server and fetches all the projects
@@ -52,13 +52,12 @@ function createProjectFolder(project) {
    let response = {
       titleContainer: titleContainer,
       fullFolder: eachProject,
-      folderImage:folderImage
+      folderImage: folderImage,
    };
    return response;
 }
 
 createProject.addEventListener("click", async () => {
-   //Here a request will be made to Server, and it will return a new project id and name
    let userId = localStorage.getItem("userId");
    let newProject = {
       id: 0,
@@ -69,7 +68,7 @@ createProject.addEventListener("click", async () => {
 
    let titleContainer = newFolder.titleContainer;
    let fullFolder = newFolder.fullFolder;
-   let folderImage=newFolder.folderImage;
+   let folderImage = newFolder.folderImage;
 
    titleContainer.contentEditable = true;
 
@@ -84,7 +83,7 @@ createProject.addEventListener("click", async () => {
          titleContainer.contentEditable = false;
          selection.removeAllRanges();
          let newTitle = titleContainer.innerText;
-
+         //Here a request will be made to Server, and it will return a new project id and name
          let response = await (
             await fetch(
                "http://127.0.0.1/BackendOfCodeEdititor/createProject.php?userId=" +
@@ -110,22 +109,50 @@ createProject.addEventListener("click", async () => {
    });
 });
 
-
 //Handle Logout
-let logout=document.querySelector('.logout');
-let shower=document.querySelector('.shower');
-let account=document.querySelector('.account');
-let accountDetails=document.querySelector('.account-detail-container');
+let logout = document.querySelector(".logout");
+let shower = document.querySelector(".shower");
+let account = document.querySelector(".account");
+let accountDetails = document.querySelector(".account-detail-container");
 
-shower.addEventListener('click',()=>{
-   if(accountDetails.style.visibility=='visible'){
-      accountDetails.style.visibility='hidden'
-   }else{
-      accountDetails.style.visibility='visible';
+shower.addEventListener("click", () => {
+   if (accountDetails.style.visibility == "visible") {
+      accountDetails.style.visibility = "hidden";
+   } else {
+      accountDetails.style.visibility = "visible";
    }
-})
-logout.addEventListener('click',()=>{
-   localStorage.removeItem('userId');
+});
+logout.addEventListener("click", () => {
+   localStorage.removeItem("userId");
    window.location.href = "../index.html";
+});
 
-})
+//Handle right to click to show delete and rename option
+let menu = document.querySelector(".menu");
+let rightClicked_ProjectId = 0;
+document.addEventListener("contextmenu", (event) => {
+   event.preventDefault();
+   if (event.target.classList[1] > 0) {
+      rightClicked_ProjectId = event.target.classList[1];
+      menu.style.left = event.clientX + "px";
+      menu.style.top = event.clientY + "px";
+      menu.style.display = "block";
+   }
+});
+document.addEventListener("click", () => {
+   menu.style.display = "none";
+});
+let deleteOption = document.querySelector(".delete");
+let rename = document.querySelector(".rename");
+
+deleteOption.addEventListener("click", () => {
+   if (rightClicked_ProjectId > 0) {
+      alert("I am about to delete Project Id:"+rightClicked_ProjectId);
+   }
+});
+rename.addEventListener("click", () => {
+   if (rightClicked_ProjectId > 0) {
+      alert("I am about to Rename Project Id:"+rightClicked_ProjectId);
+      // navigator.clipboard.
+   }
+});
