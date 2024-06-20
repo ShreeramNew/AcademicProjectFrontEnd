@@ -13,7 +13,15 @@ body {
    background-color: rgb(23, 23, 31);
 }
 .file {
-   /* border-bottom: 1px solid white; */
+   border-bottom: 1px solid rgb(145, 144, 144);
+   background: rgb(27, 27, 41);
+   color: rgb(211, 207, 207);
+   font-size: 1.2rem;
+   padding: 6px;
+   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+   padding-left: 20px;
+}
+.resource{
    background: rgb(27, 27, 41);
    color: rgb(211, 207, 207);
    font-size: 1.2rem;
@@ -65,12 +73,18 @@ body {
 .runOrSubmit:hover {
    background-color: green;
    color: white;
+   cursor: pointer;
 }
 #run {
    right: 140px;
 }
 #save {
    right: 65px;
+}
+#import{
+   right: 205px;
+   padding-left: 10px;
+   width: 49px;;
 }
 .imgForButtons {
    width: 20px;
