@@ -145,14 +145,68 @@ document.addEventListener("click", () => {
 let deleteOption = document.querySelector(".delete");
 let rename = document.querySelector(".rename");
 
-deleteOption.addEventListener("click", () => {
+//Handle delete Project
+deleteOption.addEventListener("click", async () => {
    if (rightClicked_ProjectId > 0) {
-      alert("I am about to delete Project Id:"+rightClicked_ProjectId);
+      if (confirm("Are you sure want to delete this project?")) {
+         let response = await (
+            await fetch(
+               "http://127.0.0.1/BackendOfCodeEdititor/deleteProject.php?projectId=" +
+                  rightClicked_ProjectId
+            )
+         ).json();
+         if (response.status == 200) {
+            let items = document.querySelectorAll(".project");
+            items.forEach((element) => {
+               if (element.classList[1] == rightClicked_ProjectId) {
+                  container.removeChild(element);
+               }
+            });
+            alert("Project deleted successfully!");
+         }
+      }
    }
 });
+
+//Handle rename Project
 rename.addEventListener("click", () => {
    if (rightClicked_ProjectId > 0) {
-      alert("I am about to Rename Project Id:"+rightClicked_ProjectId);
-      // navigator.clipboard.
+      let items = document.querySelectorAll(".title");
+      items.forEach((element) => {
+         if (element.classList[1] == rightClicked_ProjectId) {
+            element.contentEditable = true;
+            let range = document.createRange();
+            range.selectNodeContents(element);
+            let selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            element.addEventListener("keydown", async (event) => {
+               if (event.key == "Enter") {
+                  element.contentEditable = false;
+                  selection.removeAllRanges();
+                  let newTitle = element.innerText;
+                  //Here a request will be made to Server, and it will return a new project id and name
+                  let response = await (
+                     await fetch(
+                        "http://127.0.0.1/BackendOfCodeEdititor/renameProject.php?projectId=" +
+                           rightClicked_ProjectId +
+                           "&pname=" +
+                           newTitle
+                     )
+                  ).json();
+                  if (response.status == 400) {
+                     alert(response.message);
+                     element.contentEditable = true;
+                     let range = document.createRange();
+                     range.selectNodeContents(element);
+                     let selection = window.getSelection();
+                     selection.removeAllRanges();
+                     selection.addRange(range);
+                  }
+               }
+            });
+         }
+      });
    }
 });

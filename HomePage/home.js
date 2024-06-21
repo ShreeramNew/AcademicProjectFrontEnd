@@ -7,7 +7,7 @@ let allFiles = {};
 let recievedFilesURL = {};
 let ProjectId = localStorage.getItem("CurrentProject");
 
-//The following function creates div to show in side bar for resourceFiles
+//The following function creates div for resourceFiles to show in side bar
 function createResourceFile(fileName) {
    let sideBar = document.getElementById("sideBar");
    //Show the files in side bar
@@ -20,7 +20,8 @@ async function fetchCode() {
    let url = "http://localhost/BackendOfCodeEdititor/getCode.php?projectId=" + ProjectId;
    let response = await (await fetch(url)).json();
 
-   let resourceUrl = "http://localhost/BackendOfCodeEdititor/getResources.php?projectId="+ProjectId;
+   let resourceUrl =
+      "http://localhost/BackendOfCodeEdititor/getResources.php?projectId=" + ProjectId;
    let resourceResponse = await (await fetch(resourceUrl)).json();
    if (resourceResponse.status == 200) {
       let RecievedFiles = resourceResponse.allFile;
@@ -60,7 +61,6 @@ function getMimeType(extension) {
       mp3: "audio/mpeg",
       wav: "audio/wav",
    };
-
    return mimeTypes[extension.toLowerCase()] || "application/octet-stream";
 }
 
@@ -71,6 +71,7 @@ let setLocalStorage = (fileName) => {
    localStorage.setItem(fileName, currentCode);
 };
 
+//Handle Run button
 runButton.addEventListener("click", () => {
    setLocalStorage(currentFile);
    let htmlCode = localStorage.getItem("index.html");
@@ -142,17 +143,7 @@ files.forEach((file) => {
    });
 });
 
-//Check Button
-document.querySelector("#check").addEventListener("click", () => {
-   console.log(allFiles);
-   for (let key in allFiles) {
-      let myBlob = allFiles[key];
-      let jsonifiedBlob = JSON.stringify(myBlob);
-      console.log(jsonifiedBlob);
-      console.log(JSON.parse(jsonifiedBlob));
-   }
-});
-
+//Handle Save button
 saveButton.addEventListener("click", async () => {
    setLocalStorage(currentFile);
    let htmlCode = localStorage.getItem("index.html");
@@ -166,6 +157,7 @@ saveButton.addEventListener("click", async () => {
       cssCode: cssCode,
    };
 
+   //For saving the code
    const URL = "http://localhost/BackendOfCodeEdititor/saveProject.php";
    let response = await (
       await fetch(URL, {
@@ -178,15 +170,13 @@ saveButton.addEventListener("click", async () => {
    ).json();
    alert(response.message);
 
+   //For saving the resource files like images, audio, video etc
    const SaveResourceURL =
       "http://localhost/BackendOfCodeEdititor/saveResorces.php?projectId=" + ProjectId;
-   let formData = new FormData();
+   let formData = new FormData();//It can be used to send the large files like images, video, audio etc
    for (let key in allFiles) {
-     
-         formData.append(key, allFiles[key], key);
-      
+      formData.append(key, allFiles[key], key);
    }
-
    let NewResponse = await (
       await fetch(SaveResourceURL, {
          method: "POST",
@@ -194,24 +184,6 @@ saveButton.addEventListener("click", async () => {
       })
    ).json();
    alert(NewResponse.message);
-});
-
-//Handle Paste button
-let pasteButton = document.querySelector(".pasteButtton");
-document.addEventListener("contextmenu", (event) => {
-   event.preventDefault();
-   if (event.target.id == "sideBar") {
-      pasteButton.style.top = event.clientY + "px";
-      pasteButton.style.left = event.clientX + "px";
-      pasteButton.style.display = "block";
-   }
-});
-pasteButton.addEventListener("click", () => {
-   alert("Ready to click");
-});
-
-document.addEventListener("click", () => {
-   pasteButton.style.display = "none";
 });
 
 //Handle Import button
